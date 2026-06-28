@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: mern-auth-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: mern-auth-db
+          property: connectionString
+      - key: PORT
+        value: 3000
+      - key: FRONTEND_URL
+        value: https://your-frontend-url.onrender.com
+      - key: JWT_SECRET
+        sync: false
+
+databases:
+  - name: mern-auth-db
+    databaseName: mern_auth
+    user: mern_user
+    region: oregon
+    plan: free
